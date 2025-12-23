@@ -1,0 +1,77 @@
+package xyz.xiaocan.scpEntity.scpGameEntityInstance.Chaos;
+
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.PlayerInventory;
+import xyz.xiaocan.configload.option.RoleTemplate;
+import xyz.xiaocan.configload.option.itemoption.card.Card;
+import xyz.xiaocan.scpEntity.Human;
+import xyz.xiaocan.scpitemstacks.ItemManager;
+import xyz.xiaocan.scpitemstacks.armor.ArmorManager;
+import xyz.xiaocan.scpitemstacks.card.CardType;
+import xyz.xiaocan.scpitemstacks.card.Decoder;
+import xyz.xiaocan.scpitemstacks.medical.MedicalBag;
+import xyz.xiaocan.scpitemstacks.medical.MedicalType;
+import xyz.xiaocan.scpitemstacks.medical.Painkiller;
+import xyz.xiaocan.scpitemstacks.medical.Stimulant;
+import xyz.xiaocan.scpitemstacks.weapon.gun.AmmoType;
+import xyz.xiaocan.scpitemstacks.weapon.gun.GunType;
+import xyz.xiaocan.scpitemstacks.weapon.gun.chaosGuns.AK;
+import xyz.xiaocan.scpitemstacks.weapon.gun.chaosGuns.LOG;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class Suppressor extends Human {
+    public Suppressor(Player player, RoleTemplate roleTemplate) {
+        super(player, roleTemplate);
+    }
+
+    @Override
+    public void spawn(){
+        super.spawn();
+        initSCPPlayerInventory();
+        sendTitle();
+    }
+
+    @Override
+    public void initSCPPlayerInventory() {
+        super.initSCPPlayerInventory();
+
+        ArmorManager.getInstance().createChaosSuit(player);
+        PlayerInventory inventory = player.getInventory();
+
+        ItemManager itemManager = ItemManager.getInstance();
+        Decoder decoder = new Decoder(itemManager.allCards.get(CardType.Decoder));
+
+        LOG log = new LOG(itemManager.allGuns.get(GunType.LOG));
+
+        Painkiller painkiller = new Painkiller(
+                itemManager.getAllMedicals().get(MedicalType.PAINKILLER));
+        MedicalBag medicalBag = new MedicalBag(
+                itemManager.getAllMedicals().get(MedicalType.MEDICALBAG));
+        Stimulant stimulant = new Stimulant(
+                itemManager.getAllMedicals()
+                        .get(MedicalType.STIMULANT));
+
+        Map<AmmoType, Integer> ammo = new HashMap<>();
+        ammo.put(AmmoType.A762, 80);
+        ammo.put(AmmoType.A12, 7);
+        ItemManager.getInstance().allPlayersAmmo.put(player.getUniqueId(), ammo);
+
+        inventory.addItem(log.createItemStack(),
+                painkiller.createItemStack(),
+                medicalBag.createItemStack(),
+                stimulant.createItemStack(),
+                decoder.createItemStack()
+        );
+    }
+
+    @Override
+    protected void sendTitle(){
+        player.sendTitle(
+                "§7你是 §a§l混沌分裂者 机枪手",  // 大字体
+                "§7帮助 §6D级人员 §7逃离设施，消灭其他事物",  // 小字体
+                10, 100, 10
+        );
+    }
+}

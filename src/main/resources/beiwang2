@@ -1,0 +1,44 @@
+
+11.10
+门有时候还是点不到，优化一下, 空手点空气没有反应，去询问大佬
+
+卡片转化有时候会找不到cardtype，加检测,估计是手部没找到，最好两种方法都加上预防措施
+卡片转化成功后，显示的名字不会变，交互实体没有改名字
+把要修改的地方抽象出来放进去
+
+修改音效与粒子效果
+音效:
+    旋钮音效：minecraft:block.note_block.hat
+    开启按钮音效：minecraft:block.piston.extend 以及持续发出minecraft:block.note_block.bell
+    结束音效：minecraft:block.trial_spawner.detect_player
+粒子:
+    campfire_cosy_smoke
+    smoke
+
+
+//电梯门还没关上就传送了，有点快,等关门再传送
+
+
+//把枪械子弹系统完善了，可视化等....
+//把特殊物品写完去
+
+//------------------scp127暂时没写好----------------------------
+
+//糖果写完去
+//106解决方案,已经会了
+
+//scp频道，全部玩家频道(发送消息全部玩家都可以看到)，根据距离发送消息频道(对讲机)，默认的距离频道，20格范围内,观察者频道
+
+//teammanager注册scpplayer似乎可以放进scpplayer构造函数中
+
+
+//--------------------一些需要学习的,可能以后会用到----------------------------------
+//设置页眉页脚的可以晚点试试提升界面效果player.setPlayerListHeaderFooter("s","s1");
+// setSpectatorTarget(@Nullable Entity entity) 设置模式下镜头跟随的实体.
+// showDemoScreen()这个显示试玩还挺有意思
+
+
+
+
+//todo
+//改击杀人类或者scp得分，scp已经改好了，改下击杀人类获得分
